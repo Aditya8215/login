@@ -1,7 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login_1/reusable_widgets/resuable_widgets.dart';
-import 'package:login_1/utils/colors_utils.dart';
-import 'package:login_1/signup_page.dart';
+import 'package:firebase_login/reusable_widgets/resuable_widgets.dart';
+import 'package:firebase_login/utils/colors_utils.dart';
+import 'package:firebase_login/signup_page.dart';
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
@@ -44,7 +45,12 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 SizedBox(height: 20,),
                 signInButton(context, true, (){
-                  Navigator.pushNamed(context,'home_page');
+                  FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailTextController.text, password: _passwordTextController.text).then((value){
+                    Navigator.pushNamed(context,'home_page');
+                  }).onError((error,stackTrace){
+                    print('Error ${error.toString()}');
+                  });
+
                 }),
                 SizedBox(height: 10,),
                 signUpOptions(),
@@ -61,7 +67,7 @@ class _SignInPageState extends State<SignInPage> {
         Text("Don't have an account! ",style: TextStyle(color: Colors.black12),),
         GestureDetector(
             onTap: (){
-              Navigator.pushNamed(context,"signup_page");
+                Navigator.pushNamed(context,'signup_page');
             },
             child: Text('Sign Up',style: TextStyle(color: Colors.black26,fontWeight: FontWeight.bold),))
       ],

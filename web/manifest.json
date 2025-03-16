@@ -1,6 +1,6 @@
 {
-    "name": "login_1",
-    "short_name": "login_1",
+    "name": "firebase_login",
+    "short_name": "firebase_login",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
